@@ -15,7 +15,7 @@ document.getElementById('addbody').onclick = (e) => {
 }
 
 function resetSystem() {
-    alert('Reset');
+    alert(`${velocityXY(10, 045).x} ${velocityXY(10, 045).y}`);
 }
 function startSystem() {
     alert('Start System');
