@@ -26,8 +26,9 @@ function GravitationalAttractionForces(m1, m2, distance) {
 
 function simulate(shouldSimulate) {
     if(!shouldSimulate) {return;}
-    b1 = addForceToBody(b1, 40, 135);
-    createLog(`x: ${b1.velocity.x} y: ${b1.velocity.y}`);
+    b1 = addForceToBody(b1, 1, 180);
+    b1 = moveBody(b1);
+    createLog(`x: ${b1.position.x} y: ${b1.position.y}`);
 }
 
 function draw() {
