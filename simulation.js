@@ -2,14 +2,20 @@ worldMap = {x: 1000, y:1000};
 
 let b1;
 
+function initWorld() {
+    b1 = initBody(500.0, 10, 40, 40, {magnitude: 10, direction: 135});
+    createLog('bodies created');
+}
+
+
 function setup() {
     const canvas = createCanvas(1000, 600);
     canvas.parent('canvasDiv');
-    b1 = initBody(500.0, 10, 40, 40, velocityXY(100, 090))
-    //console.log(b1);
+    createLog('canvas created');
+    initWorld();
 }
 
-function forces(m1, m2, distance) {
+function GravitationalAttractionForces(m1, m2, distance) {
     const G = 6.6743e-11;
     let d2 = distance * distance;
     let force = G * m1 * m2;
@@ -18,12 +24,14 @@ function forces(m1, m2, distance) {
     return force;
 }
 
-function simulate() {
-    b1 = moveBody(b1, 40, 90);
+function simulate(shouldSimulate) {
+    if(!shouldSimulate) {return;}
+    b1 = addForceToBody(b1, 40, 135);
+    createLog(`x: ${b1.velocity.x} y: ${b1.velocity.y}`);
 }
 
 function draw() {
     background(000);
-    simulate();
+    simulate(shouldSimulate);
     drawBody(worldMap, b1, '#ffffff');
 }

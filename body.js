@@ -42,9 +42,6 @@ function velocityXY(speed, direction) {
             x = -(_cos(d) * speed);
             y = -(_sin(d) * speed);
             break;
-        default:
-            console.log('default case!');
-            break;
     }
 
     if(Math.abs(x) == Math.abs(speed)) {y = 0;}
@@ -56,8 +53,8 @@ function velocityXY(speed, direction) {
     return retobj
 }
 
-function initBody(mass, radius, x, y, initial_velocity) {
-    return {mass: mass, radius: radius, velocity: initial_velocity, x: x, y: y};
+function initBody(mass, radius, x, y, initial_velocity) { // real, real, real, real, {magnitude: real, direction: real}
+    return {mass: mass, radius: radius, momentum: {magnitude: initial_velocity.magnitude * mass, direction: initial_velocity.direction}, position: {x: x, y: y}};
 }
 
 function drawBody(worldMap, bodyObj, colour) {
@@ -68,6 +65,16 @@ function drawBody(worldMap, bodyObj, colour) {
     circle(realXPos, realYPos, bodyObj.radius*2);
 }
 
-function moveBody(bodyObj, speed, direction) {
-    //console.log(bodyObj);
+function addForceToBody(bodyObj, speed, direction) {
+    ret = bodyObj;
+    dxdy = velocityXY(speed, direction);
+    dx = dxdy.x;
+    dy = dxdy.y;
+    ret.momentum.x = dx;
+    ret.velocity.y = dy;
+
+    ret.x += ret.velocity.x;
+    ret.y += ret.velocity.y;
+
+    return ret;
 }
